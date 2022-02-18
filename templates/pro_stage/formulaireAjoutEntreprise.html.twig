@@ -5,7 +5,17 @@
 
 {% block liste %}
     <div class="form-group">
-    {{ form(vueFormulaireEntreprise) }}
+    {{ form_start(vueFormulaireEntreprise) }}
+    <label>Nom de l'entreprise </label>
+    {{form_widget(vueFormulaireEntreprise.nom)}}
+    <label>Adresse de l'entreprise </label>
+    {{form_widget(vueFormulaireEntreprise.adresse)}}
+
+    <label>Le secteur d'activite de l'entreprise</label>
+    {{form_widget(vueFormulaireEntreprise.activite)}}
+    <label>L'URL du site internet de l'entreprise</label>
+    {{form_widget(vueFormulaireEntreprise.site)}}
+    {{ form_end(vueFormulaireEntreprise) }}
     </div>
     <br><br>
 {% endblock %}
