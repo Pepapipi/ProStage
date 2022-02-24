@@ -8,14 +8,17 @@ use App\Entity\Formation;
 use App\Repository\EntrepriseRepository;
 use App\Repository\FormationRepository;
 use App\Repository\StageRepository;
+
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ProStageController extends AbstractController
 {
@@ -74,8 +77,9 @@ class ProStageController extends AbstractController
     /**
      * @Route("/entreprises/ajout", name="Prostage_ajout_entreprise")
      */
-    public function ajouterEntreprise()
+    public function ajouterEntreprise(Request $request, EntityManagerInterface $manager)
     {
+        //Utilisation du EntityManagerInterface car ObjectManager ne voulait pas fonctionner
         $entreprise = new Entreprise();
 
         $formulaireEntreprise = $this->createFormBuilder($entreprise)
@@ -84,6 +88,15 @@ class ProStageController extends AbstractController
             ->add('activite', TextareaType::class)
             ->add('site', UrlType::class)
             ->getForm();
+
+            $formulaireEntreprise->handleRequest($request);
+            
+            if($formulaireEntreprise->isSubmitted())
+            {
+                $manager->persist($entreprise);
+                $manager->flush();
+                return $this->redirectToRoute('Prostage_ajout_entreprise');
+            }
 
         return $this->render(
             'pro_stage/formulaireAjoutEntreprise.html.twig',
