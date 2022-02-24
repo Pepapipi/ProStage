@@ -6,15 +6,14 @@
 {% block liste %}
     <div class="form-group">
     {{ form_start(vueFormulaireEntreprise) }}
-    <label>Nom de l'entreprise </label>
-    {{form_widget(vueFormulaireEntreprise.nom)}}
-    <label>Adresse de l'entreprise </label>
-    {{form_widget(vueFormulaireEntreprise.adresse)}}
+    {{  form_row(vueFormulaireEntreprise.nom, {'attr':{'placeholder':"Exemple : Patatam"}})}}
 
-    <label>Le secteur d'activite de l'entreprise</label>
-    {{form_widget(vueFormulaireEntreprise.activite)}}
-    <label>L'URL du site internet de l'entreprise</label>
-    {{form_widget(vueFormulaireEntreprise.site)}}
+    {{form_row(vueFormulaireEntreprise.adresse, {'attr':{'placeholder':"Exemple : 7 avenue des chemins perdues 64100 Bayonne "}})}}
+    {{form_row(vueFormulaireEntreprise.activite, {'attr':{'placeholder':"Exemple : Ventes en ligne de vêtements de seconde main "}})}}
+
+    {{form_row(vueFormulaireEntreprise.site,{'attr':{'placeholder':"Exemple : www.patatam.com "}})}}
+    <br>
+    <button type="submit" class="btn btn-dark">Enregistrer</button>
     {{ form_end(vueFormulaireEntreprise) }}
     </div>
     <br><br>

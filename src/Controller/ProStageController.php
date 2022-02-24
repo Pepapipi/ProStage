@@ -79,10 +79,10 @@ class ProStageController extends AbstractController
         $entreprise = new Entreprise();
 
         $formulaireEntreprise = $this->createFormBuilder($entreprise)
-            ->add('nom', TextType::class, ['attr' =>['placeholder'=>"Exemple : Patatam"]])
-            ->add('adresse', TextType::class,  ['attr' =>['placeholder'=>"Exemple : 7 avenue des chemins perdues 64100 Bayonne "]])
-            ->add('activite', TextareaType::class, ['attr' =>['placeholder'=>"Exemple : Ventes en ligne de vêtements de seconde main "]])
-            ->add('site', UrlType::class, ['attr' =>['placeholder'=>"Exemple : www.patatam.com "]])
+            ->add('nom', TextType::class)
+            ->add('adresse', TextType::class)
+            ->add('activite', TextareaType::class)
+            ->add('site', UrlType::class)
             ->getForm();
 
         return $this->render(
