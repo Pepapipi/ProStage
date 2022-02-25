@@ -9,10 +9,13 @@
 	<thead>
 		<tr>
 			<th>
-				#
+				# 
 			</th>
 			<th>
 				Nom de l'entreprise
+			</th>
+			<th>
+			Modifier l'entreprise
 			</th>
 		</tr>
 	</thead>
@@ -21,11 +24,14 @@
 			<tr>
 				<td>
 					<a class="nav-link" href="{{path('ProStage_detail_entreprise', {id:entreprise.id})}}">
-						{{entreprise.id}}</td>
+						{{entreprise.id}}</td></a>
 				</td>
 				<td>
 					{{entreprise.nom}}</td>
+				<td>
+					<a class="nav-link" href="{{path('Prostage_modif_entreprise',{id:entreprise.id})}}">
+					Modifier</td></a>
 			</tr>
-		</a>
+		
 	</tbody>
 </tr>{% endfor %}</tbody></table>{% endblock %}

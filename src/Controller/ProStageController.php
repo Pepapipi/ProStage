@@ -95,13 +95,44 @@ class ProStageController extends AbstractController
             {
                 $manager->persist($entreprise);
                 $manager->flush();
-                return $this->redirectToRoute('Prostage_ajout_entreprise');
+                return $this->redirectToRoute('ProStage_entreprises');
             }
 
         return $this->render(
             'pro_stage/formulaireAjoutEntreprise.html.twig',
             [
-                'vueFormulaireEntreprise' => $formulaireEntreprise->createView()
+                'vueFormulaireEntreprise' => $formulaireEntreprise->createView(), 'action'=>"ajouter"
+            ]
+        );
+    }
+
+    /**
+     * @Route("/entreprises/modifier/{id}", name="Prostage_modif_entreprise")
+     */
+    public function modifierEntreprise(Request $request, EntityManagerInterface $manager, Entreprise $entreprise)
+    {
+    
+    
+        $formulaireEntreprise = $this->createFormBuilder($entreprise)
+            ->add('nom', TextType::class)
+            ->add('adresse', TextType::class)
+            ->add('activite', TextareaType::class)
+            ->add('site', UrlType::class)
+            ->getForm();
+
+            $formulaireEntreprise->handleRequest($request);
+            
+            if($formulaireEntreprise->isSubmitted())
+            {
+                $manager->persist($entreprise);
+                $manager->flush();
+                return $this->redirectToRoute('ProStage_entreprises');
+            }
+
+        return $this->render(
+            'pro_stage/formulaireAjoutEntreprise.html.twig',
+            [
+                'vueFormulaireEntreprise' => $formulaireEntreprise->createView(), 'action'=>"modifier"
             ]
         );
     }

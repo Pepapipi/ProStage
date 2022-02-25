@@ -1,6 +1,10 @@
 {% extends "base.html.twig" %}
 {% block nomPage %}
+{% if action == "ajouter" %}
     Ajouter une entreprise
+{% else %}
+    Modifier une entreprise
+{% endif %}
 {% endblock %}
 
 {% block liste %}
