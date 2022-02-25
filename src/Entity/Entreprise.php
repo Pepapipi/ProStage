@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\EntrepriseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -21,21 +21,33 @@ class Entreprise
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     * min = 4,
+     * max = 255,
+     * minMessage="Le titre doit faire au minimum {{ limit }} caractère"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Regex(pattern="#rue|boulevard|avenue|impasse|allée|place|voie#i", message="Le type d'adresse est incorrect")
+     * @Assert\Regex(pattern="# [0-9]{5} #", message="Le code postal est incorrect")
+     * @Assert\Regex(pattern="#^[1-9][0-9]{0,2} ? #", message="Le numéro de rue semble incorrect")
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $activite;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url
      */
     private $site;
 
