@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\EntrepriseType;
 
 class ProStageController extends AbstractController
 {
@@ -82,12 +83,8 @@ class ProStageController extends AbstractController
         //Utilisation du EntityManagerInterface car ObjectManager ne voulait pas fonctionner
         $entreprise = new Entreprise();
 
-        $formulaireEntreprise = $this->createFormBuilder($entreprise)
-            ->add('nom', TextType::class)
-            ->add('adresse', TextType::class)
-            ->add('activite', TextareaType::class)
-            ->add('site', UrlType::class)
-            ->getForm();
+        $formulaireEntreprise = $this->createForm(EntrepriseType::class, $entreprise);
+            
 
             $formulaireEntreprise->handleRequest($request);
             
@@ -113,12 +110,7 @@ class ProStageController extends AbstractController
     {
     
     
-        $formulaireEntreprise = $this->createFormBuilder($entreprise)
-            ->add('nom', TextType::class)
-            ->add('adresse', TextType::class)
-            ->add('activite', TextareaType::class)
-            ->add('site', UrlType::class)
-            ->getForm();
+        $formulaireEntreprise = $this->createForm(EntrepriseType::class, $entreprise);
 
             $formulaireEntreprise->handleRequest($request);
             
