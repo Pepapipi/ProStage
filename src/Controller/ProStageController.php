@@ -8,10 +8,7 @@ use App\Entity\Formation;
 use App\Repository\EntrepriseRepository;
 use App\Repository\FormationRepository;
 use App\Repository\StageRepository;
-
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Form\StageType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -64,6 +61,33 @@ class ProStageController extends AbstractController
     }
 
     /**
+     * @Route("/stages/ajout", name="ProStage_ajout_stage")
+     */
+    public function ajouterStage(Request $request, EntityManagerInterface $manager)
+    {
+        $stage = new Stage();
+
+        $formulaireStage = $this->createForm(StageType::class, $stage);
+
+        $formulaireStage->handleRequest($request);
+
+        if ($formulaireStage->isSubmitted() && $formulaireStage->isValid()){
+            $manager->persist($stage);
+            $manager->flush();
+
+            return $this->redirectToRoute('ProStage_accueil');
+        }
+
+        return $this->render(
+            'pro_stage/formulaireAjoutStage.html.twig',
+            [
+                'vueFormulaireStage' => $formulaireStage->createView(),
+                'action' => "ajouter"
+            ]
+        );
+    }
+    
+    /**
      * @Route("/stages/{id}", name="ProStage_stage")
      */
     public function afficherDetailStage(Stage $stage): Response
@@ -74,6 +98,8 @@ class ProStageController extends AbstractController
             ['stage' => $stage]
         );
     }
+
+    
 
     /**
      * @Route("/entreprises/ajout", name="Prostage_ajout_entreprise")
