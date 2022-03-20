@@ -25,7 +25,6 @@ class ProStageController extends AbstractController
      */
     public function index(StageRepository $reposStage): Response
     {
-        // $stages = $reposStage->findAll();
         $stages = $reposStage->findStagesAvecEntreprises();
 
         return $this->render(
@@ -61,7 +60,7 @@ class ProStageController extends AbstractController
     }
 
     /**
-     * @Route("/stages/ajout", name="ProStage_ajout_stage")
+     * @Route("profile/stages/ajout", name="ProStage_ajout_stage")
      */
     public function ajouterStage(Request $request, EntityManagerInterface $manager)
     {
@@ -102,7 +101,7 @@ class ProStageController extends AbstractController
     
 
     /**
-     * @Route("/entreprises/ajout", name="Prostage_ajout_entreprise")
+     * @Route("admin/entreprises/ajout", name="Prostage_ajout_entreprise")
      */
     public function ajouterEntreprise(Request $request, EntityManagerInterface $manager)
     {
