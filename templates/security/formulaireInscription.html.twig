@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+{% block nomPage %}
+Inscription sur ProStage
+{% endblock %}
+
+{% block liste %}
+    <div class="form-group">
+    {{ form_start(vueFormulaireUser) }}
+    {{  form_row(vueFormulaireUser.prenom, {'attr':{'placeholder':"Exemple : Dorian"}})}}
+
+    {{  form_row(vueFormulaireUser.nom, {'attr':{'placeholder':"Exemple : Nunez"}})}}    
+    {{  form_row(vueFormulaireUser.email, {'attr':{'placeholder':"Exemple : tonemail@undomaine.com"}})}}
+    {{  form_row(vueFormulaireUser.password, {'attr':{'placeholder':"Insere un mot de passe"}})}}    <br>
+    <button type="submit" class="btn btn-dark">Enregistrer</button>
+    {{ form_end(vueFormulaireUser) }}
+    </div>
+    <br><br>
+{% endblock %}

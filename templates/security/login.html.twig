@@ -3,6 +3,7 @@
 {% block nomPage %}Log in!{% endblock %}
 
 {% block contenu %}
+
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -33,5 +34,6 @@
     <button class="btn btn-lg btn-primary" type="submit">
         Se connecter
     </button>
+    
 </form>
 {% endblock %}

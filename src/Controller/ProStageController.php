@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Stage;
 use App\Entity\Entreprise;
 use App\Entity\Formation;
+use App\Entity\User;
 use App\Repository\EntrepriseRepository;
 use App\Repository\FormationRepository;
 use App\Repository\StageRepository;
 use App\Form\StageType;
+use App\Form\UserType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -17,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\EntrepriseType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProStageController extends AbstractController
 {
@@ -56,6 +59,34 @@ class ProStageController extends AbstractController
         return $this->render(
             'pro_stage/afficherFormations.html.twig',
             ['formations' => $formations]
+        );
+    }
+    /**
+     * @Route("/inscription", name="ProStage_inscription")
+     */
+    public function ajouterUser(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    {
+        $user = new User();
+
+        $formulaireUser = $this->createForm(UserType::class, $user);
+
+        $formulaireUser->handleRequest($request);
+
+        if ($formulaireUser->isSubmitted() && $formulaireUser->isValid()){
+            $user->setRoles(['ROLE_USER']);
+            $encodagePassword = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($encodagePassword);
+            $manager->persist($user);
+            $manager->flush(); 
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render(
+            'security/formulaireInscription.html.twig',
+            [
+                'vueFormulaireUser' => $formulaireUser->createView()
+            ]
         );
     }
 
