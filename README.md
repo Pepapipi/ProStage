@@ -1,3 +1,2 @@
 # ProStage
-
-Ceci est le projet Symfony ProStage réalisé lors des différent TPs de M31 04
+Ceci est le sujet ProStage réalisé entre le S3 et S4
